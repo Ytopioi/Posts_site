@@ -1,0 +1,11 @@
+.text {
+	font-weight: 700;
+	color: rgb(83, 75, 60);
+}
+
+.logo {
+	max-width: 224px;
+	height: inherit;
+	
+	display: flex;
+}
