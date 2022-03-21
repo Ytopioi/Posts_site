@@ -16,7 +16,8 @@
     "dayjs": "^1.11.0",
     "normalize.css": "^8.0.1",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "styled-components": "^5.3.3"
   },
   "scripts": {
     "editorconfig": "editorconfig-checker",

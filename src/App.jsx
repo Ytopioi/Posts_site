@@ -1,19 +1,34 @@
 import React, { useState } from "react";
+import styled from 'styled-components';
+import cn from "classnames";
 import { Layout, Menu, Breadcrumb} from "antd";
 import { Logo } from "./components/Logo";
 import { postData } from "./posts";
 import { PostsList } from "./components/PostsList";
-
-
+import Button from "./components/Button";
 const { Header, Content, Footer } = Layout;
+
+const Styles = styled.div`
+  .header, .footer, .menu {
+    background-color: rgb(153 109 241);
+    
+    &:hover {
+      color: white;
+    }
+  }
+
+  .footer {
+    padding-bottom: 40px;
+  }
+`
 
 export const App = () => {
   const [posts, setPosts] = useState(postData);
 
   return (
-    <>
+    <Styles>
       <Layout>
-        <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
+        <Header className="header" style={{ position: "fixed", zIndex: 1, width: "100%" }}>
           <div className="logo">
             <Logo />
           </div>
@@ -33,18 +48,24 @@ export const App = () => {
             <Breadcrumb.Item>Home</Breadcrumb.Item>
             <Breadcrumb.Item>All Posts</Breadcrumb.Item>
           </Breadcrumb>
+          <div className={cn('create')}>
+            <h1>Welcome to Our Image Board!</h1>
+          <Button/>
+          </div>
+          
           <div
             className="site-layout-background"
             style={{ padding: 24, minHeight: 380 }}
           >
+            
             <PostsList postsData={posts}/>
 
           </div>
         </Content>
-        <Footer style={{ textAlign: "center" }}>
+        <Footer className="footer" style={{ textAlign: "center" }}>
           Ant Design ©2018 Created by Ant UED
         </Footer>
       </Layout>
-    </>
+    </Styles>
   );
 };
