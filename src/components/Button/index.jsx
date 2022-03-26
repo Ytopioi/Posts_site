@@ -1,11 +1,24 @@
 import React from "react";
-import { Button } from "antd";
+import { Button } from '@mui/material';
+import { Add } from '@mui/icons-material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { purple } from '@mui/material/colors';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: purple[400],
+    }
+  },
+});
 
 const _Button = () => {
   return (
-    <>
-	 <Button>Create Post</Button>
-    </>
+    <ThemeProvider theme={theme}>
+      <Button color='primary' variant="outlined" startIcon={<Add />}>
+      Create Post
+      </Button>
+      </ThemeProvider>
   );
 };
 

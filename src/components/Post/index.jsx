@@ -28,7 +28,14 @@ export const Post = ({image, title, author: {avatar, name, email}, text, created
 
   return (
         <Grid container item xs={6} sm={4} md={3}>
-            <Card className={s.card} sx={{ maxWidth: 345 }}>
+            <Card 
+            className={s.card} 
+            sx={{ 
+                maxWidth: 345, 
+                border: 1, 
+                borderColor: 'rgb(153 109 241)', 
+                boxShadow: '10px 10px 2px 1px rgba(0, 0, 255, .1)' }}
+            >
                 <CardHeader
                     avatar={
                     <Avatar src={avatar && avatar} aria-label="recipe">

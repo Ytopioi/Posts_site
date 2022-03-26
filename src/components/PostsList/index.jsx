@@ -1,14 +1,22 @@
 import React from "react";
-import { AppBar, Toolbar, IconButton, Typography, Button, Grid  } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import { Grid  } from '@mui/material';
 import { Post } from "../Post";
 
-export const PostsList = ({postsData}) => {
+export const PostsList = ({postsData, rows}) => {
+  const countPost = 0;
+
   return (
     <>
-        <Grid container spacing={2}>
-            {postsData.map(post => <Post key={post._id} {...post}/>)}
+        <Grid container spacing={2} sx={{mb: 5}}>
+            {postsData.map((post) => {
+
+            return <Post key={post._id} {...post}/>
+
+            })}
         </Grid>
+        
     </>
   );
+
+  
 };
