@@ -4,20 +4,17 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@ant-design/icons": "^4.7.0",
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.5.1",
     "@mui/material": "^5.5.1",
     "@nuxtjs/dayjs": "^1.4.1",
-    "antd": "^4.19.2",
     "classnames": "^2.3.1",
     "core-js": "^3.21.1",
     "dayjs": "^1.11.0",
     "normalize.css": "^8.0.1",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "styled-components": "^5.3.3"
+    "react-dom": "^17.0.2"
   },
   "scripts": {
     "editorconfig": "editorconfig-checker",
