@@ -83,7 +83,7 @@ export const Post = ({currentUser, onPostLike, _id, likes, image, title, author:
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
-                        <Typography paragraph>
+                        <Typography paragraph sx={{color: "black"}}>
                             {text}
                         </Typography>
                     </CardContent>
