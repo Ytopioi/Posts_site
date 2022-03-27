@@ -18,13 +18,18 @@ const ExpandMoreStyle = styled((props) => {
     marginLeft: 'auto',
   }));
 
-export const Post = ({image, title, author: {avatar, name, email}, text, created_at }) => {
+export const Post = ({currentUser, onPostLike, _id, likes, image, title, author: {avatar, name, email}, text, created_at }) => {
     const [expanded, setExpanded] = useState(false);
     const handleExpandClick = () => {
       setExpanded(!expanded);
     };
+    const isLiked = likes.some((id) => id === currentUser._id);
 
-    const dataFormated = dayjs(created_at).format('dddd, MMMM DD YYYY')
+    const dataFormated = dayjs(created_at).format('dddd, MMMM DD YYYY');
+
+    const handleLikeClick = () => {
+        onPostLike({_id, likes})
+    };
 
   return (
         <Grid container item xs={6} sm={4} md={3}>
@@ -65,8 +70,8 @@ export const Post = ({image, title, author: {avatar, name, email}, text, created
                     </Typography>
                 </CardContent>
                 <CardActions sx={{marginTop: "auto"}} disableSpacing>
-                    <IconButton aria-label="add to favorites">
-                        <Favorite />
+                    <IconButton aria-label="add to favorites" onClick={handleLikeClick}>
+                        {isLiked ? <Favorite sx={{fill: "red"}}/> : <Favorite/>}
                     </IconButton>
                     <ExpandMoreStyle
                         expand={expanded}

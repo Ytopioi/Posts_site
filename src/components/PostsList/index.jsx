@@ -2,15 +2,20 @@ import React from "react";
 import { Grid  } from '@mui/material';
 import { Post } from "../Post";
 
-export const PostsList = ({postsData, rows}) => {
+export const PostsList = ({postsData, onPostLike, currentUser}) => {
   const countPost = 0;
 
   return (
     <>
         <Grid container spacing={2} sx={{mb: 5}}>
-            {postsData.map((post) => {
+            {postsData.map(({__v, ...post}) => {
 
-            return <Post key={post._id} {...post}/>
+            return <Post 
+                      key={post._id} 
+                      {...post} 
+                      onPostLike={onPostLike}
+                      currentUser={currentUser}
+                    />
 
             })}
         </Grid>

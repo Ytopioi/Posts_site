@@ -1,0 +1,18 @@
+.user {
+	padding: 5px;
+
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+
+	border: 2px dashed purple;
+}
+
+p {
+	margin: 0;
+	padding-bottom: 5px;
+
+	font-size: 18px;
+	font-weight: 600;
+	color: rgb(212, 174, 248);
+}
