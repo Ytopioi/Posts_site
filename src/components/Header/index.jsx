@@ -18,7 +18,7 @@ const theme = createTheme({
 const _Header = ({user, onUpdateUser}) => {
   const handleClickEditButton = (e) => {
     e.preventDefault();
-    onUpdateUser({name: "Савенкова Марина", about: "Студент"})
+    onUpdateUser({name: "Савенкова Марина Александровна", about: "Писатель"})
   }
   
   return (
