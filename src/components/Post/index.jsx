@@ -73,6 +73,7 @@ export const Post = ({currentUser, onPostLike, _id, likes, image, title, author:
                     <IconButton aria-label="add to favorites" onClick={handleLikeClick}>
                         {isLiked ? <Favorite sx={{fill: "red"}}/> : <Favorite/>}
                     </IconButton>
+                    <p>{likes.length}</p>
                     <ExpandMoreStyle
                         expand={expanded}
                         onClick={handleExpandClick}
