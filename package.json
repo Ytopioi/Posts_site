@@ -21,7 +21,8 @@
     "test": "npm run editorconfig",
     "build:prod": "rimraf ./dist && webpack --mode production --config webpack.config.js",
     "build:dev": "rimraf ./dist && webpack --mode development --config webpack.config.js",
-    "start": "webpack serve"
+    "start": "webpack serve",
+    "deploy": "rimraf ./dist && yarn build:prod && gh-pages -d dist"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",

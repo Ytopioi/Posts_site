@@ -13,7 +13,6 @@ import api from './utils/Api';
 export const App = () => {
 
   const [posts, setPosts] = useState([]);
-  const [page, setPage] = useState(1);
   const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
@@ -49,11 +48,11 @@ export const App = () => {
         </div>
         <div className={cn("create")}>
           <h1>Welcome to Our Image Board!</h1>
-          <Button />
+          <Button text='Creat Post' icon='Add' />
         </div>
         <PostsList postsData={posts} onPostLike={handlePostLike} currentUser={currentUser}/>
-        <Pagination page={page} onChange={setPage}/>
       </Container>
+      <Pagination />
       <Footer className={cn('footer')}/>
     </>
   );

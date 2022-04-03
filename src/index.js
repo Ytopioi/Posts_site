@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { App } from './App';
-// import { AppMUI } from './AppMui';
+// import { App } from './App';
+import { PostPage } from './pagePost';
 
 import './index.css';
 
-ReactDOM.render(<App/>, document.querySelector("#root"));
+ReactDOM.render(<PostPage/>, document.querySelector("#root"));

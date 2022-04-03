@@ -2,12 +2,25 @@
 	box-sizing: inherit;
 }
 
+#root {
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+}
+
 html {
 	box-sizing: border-box;
+	height: 100%;
 }
 
 body {
   font-family: "Nunito", "Arial", "Helvetica", sans-serif;
+  height: 100%;
+}
+
+.content {
+	padding: 20px 0;
+	flex: 1;
 }
 
  .menu {
@@ -25,5 +38,9 @@ body {
 
  .add__margin {
 	 margin-top: 10px;
+ }
+
+ .btn_edit {
+	 float: right;
  }
 

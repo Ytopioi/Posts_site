@@ -36,13 +36,21 @@ class Api {
 		 }).then(onResponce)
 	}
 
-	changeLikeStatus(productId, isLike){
-		 return fetch(`${this._baseUrl}/posts/likes/${productId}`, {
+	changeLikeStatus(postId, isLike){
+		 return fetch(`${this._baseUrl}/posts/likes/${postId}`, {
 			  method: isLike ? "DELETE" : "PUT",
 			  headers: {
 					authorization: this._token,
 			  },
 		 }).then(onResponce)
+	}
+
+	getPostById(postID) {
+		return fetch(`${this._baseUrl}/posts/${postID}`, {
+			headers: {
+				authorization: this._token,
+		  },
+		}).then(onResponce)
 	}
 	
 }

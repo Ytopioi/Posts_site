@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from '@mui/material';
-import { Add } from '@mui/icons-material';
+import { Add, Edit } from '@mui/icons-material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { purple } from '@mui/material/colors';
 
@@ -12,13 +12,14 @@ const theme = createTheme({
   },
 });
 
-const _Button = () => {
+const _Button = ({text, icon}) => {
+  
   return (
     <ThemeProvider theme={theme}>
-      <Button color='primary' variant="outlined" startIcon={<Add />}>
-      Create Post
+      <Button color='primary' variant="outlined" startIcon={icon && icon === 'Edit' ? <Edit /> : <Add />}>
+        {text}
       </Button>
-      </ThemeProvider>
+    </ThemeProvider>
   );
 };
 

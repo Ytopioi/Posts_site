@@ -1,0 +1,41 @@
+.title_post {
+	color: rgb(97, 11, 97);
+}
+
+.author_post, 
+.text_post,
+.tags_post {
+	margin: 20px;
+	padding: 20px;
+
+	display: flex;
+	justify-content: space-around;
+}
+
+.author_post {
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px dashed purple;
+}
+
+.tags_post {
+	justify-content: end;
+}
+
+.tag_link {
+	padding: 20px;
+	color: purple;
+	font-weight: 700;
+	text-decoration: none;
+}
+
+.end_post {
+	height: 30px;
+	margin: 20px;
+	padding: 20px;
+
+	display: flex;
+	justify-content: space-between;
+	align-items:center;
+	
+}
