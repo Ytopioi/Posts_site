@@ -1,25 +1,17 @@
 import React, { useState } from "react";
-import { Breadcrumbs, Link, Avatar, Card, CardActions, CardContent, CardHeader, CardMedia, Collapse, IconButton, Typography, Grid} from '@mui/material';
-import { Favorite, MoreVert, ExpandMore } from '@mui/icons-material';
-import { styled } from '@mui/material/styles';
+import { Avatar, IconButton, Typography } from '@mui/material';
+import { Favorite } from '@mui/icons-material';
 import dayjs from "dayjs";
 import 'dayjs/locale/ru';
 
 import cn from "classnames";
 import s from './styles.module.css';
-import { Button } from '@mui/material';
 
 dayjs.locale('ru')
 
 export const SeePost = ({currentUser, onPostLike, _id, likes, image, title, text, created_at, author, tags }) => {
-
-   //  const [expanded, setExpanded] = useState(false);
-   //  const handleExpandClick = () => {
-   //    setExpanded(!expanded);
-   //  };
     const isLiked = likes && likes.some((id) => id === currentUser._id);
-
-    const dataFormated = dayjs(created_at).format('dddd, MMMM DD YYYY');
+    const dataFormated = dayjs(created_at).format('DD MMMM YYYY, dddd');
 	 
     const handleLikeClick = () => {
         onPostLike({_id, likes})
@@ -52,7 +44,7 @@ export const SeePost = ({currentUser, onPostLike, _id, likes, image, title, text
 
 		<div className={s.text_post}>
 			<img src={image} alt={`Изображение поста ${author?.name}`} />
-			<Typography style={{color: "rgb(97, 11, 97)"} }>
+			<Typography style={{color: "rgb(97, 11, 97)", margin: '20px'} }>
 				{text}
 			</Typography>
 		</div>

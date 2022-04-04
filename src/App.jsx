@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import cn from "classnames";
-// import { postData } from "./posts";
-import { PostsList } from "./components/PostsList";
-import Button from "./components/Button";
 import Header from "./components/Header";
-import Breadcrumb from "./components/Breadcrumbs";
-import Pagination from "./components/Pagination";
 import Footer from "./components/Footer";
-import { Container, List } from "@mui/material";
+import { Container } from "@mui/material";
 import api from './utils/Api';
+import { PageAllPosts } from "./pages/AllPostsPage/AllPostsPage";
+import { PagePost } from "./pages/PostPage/PostPage";
+import { Route, Routes } from "react-router-dom";
+import { CurrentUserContext } from './context/currentUserContext';
 
 export const App = () => {
 
@@ -39,21 +38,41 @@ export const App = () => {
       })
   }
 
+  const handlePostDelete = ({_id}) => {
+    api.deletePost(_id)
+      .then((data) => {
+        return console.log(data);
+      })
+  }
+
   return (
-    <>
-      <Header user={currentUser} onUpdateUser={handleUpdateUser}/>
-      <Container>
-        <div className={cn("add__margin")}>
-        <Breadcrumb/>
-        </div>
-        <div className={cn("create")}>
-          <h1>Welcome to Our Image Board!</h1>
-          <Button text='Creat Post' icon='Add' />
-        </div>
-        <PostsList postsData={posts} onPostLike={handlePostLike} currentUser={currentUser}/>
+    <CurrentUserContext.Provider value={currentUser}>
+      <Header onUpdateUser={handleUpdateUser}/>
+      <Container >
+        <Routes>
+          <Route path='/' element={
+            <PageAllPosts
+              currentUser={currentUser}
+              posts={posts}
+              handlePostLike={handlePostLike}
+              onPostDelete={handlePostDelete}
+            />
+          } />
+
+          <Route path='/post/:postID' element={
+            <PagePost 
+              currentUser={currentUser}
+              handlePostLike={handlePostLike}
+            />
+          } />
+
+          <Route path='*' element={
+            // <PageNotFound />
+            <h1 className={cn('text_not_found')}>Ошибка 404<br/>Страница не найдена</h1>
+          } />
+        </Routes>
       </Container>
-      <Pagination />
       <Footer className={cn('footer')}/>
-    </>
+    </CurrentUserContext.Provider>
   );
 };

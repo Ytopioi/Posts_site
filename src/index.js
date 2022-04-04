@@ -1,8 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// import { App } from './App';
-import { PostPage } from './pagePost';
+import { BrowserRouter } from "react-router-dom";
+import { App } from './App';
 
 import './index.css';
 
-ReactDOM.render(<PostPage/>, document.querySelector("#root"));
+ReactDOM.render(
+	<BrowserRouter>
+		<App/>
+	</BrowserRouter>
+, document.querySelector("#root"));

@@ -12,7 +12,7 @@ const theme = createTheme({
   },
 });
 
-const _Pagination = ({page}) => {
+const _Pagination = () => {
 	const lastPage = 5;
 
   return (

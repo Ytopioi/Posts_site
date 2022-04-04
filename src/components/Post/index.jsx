@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Avatar, Card, CardActions, CardContent, CardHeader, CardMedia, Collapse, IconButton, Typography, Grid } from '@mui/material';
-import { Favorite, MoreVert, ExpandMore } from '@mui/icons-material';
+import { Favorite, MoreVert, ExpandMore, Delete } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import dayjs from "dayjs";
 import 'dayjs/locale/ru';
+import { Link } from "react-router-dom";
+import { CurrentUserContext } from "../../context/currentUserContext";
 
 import cn from "classnames";
 import s from './styles.module.css';
+
 dayjs.locale('ru')
 
 
@@ -18,18 +21,23 @@ const ExpandMoreStyle = styled((props) => {
     marginLeft: 'auto',
   }));
 
-export const Post = ({currentUser, onPostLike, _id, likes, image, title, author: {avatar, name, email}, text, created_at }) => {
+export const Post = ({onPostDelete, onPostLike, _id, likes, image, title, author: {avatar, name, email}, text, created_at }) => {
+    const currentUser = useContext(CurrentUserContext);
     const [expanded, setExpanded] = useState(false);
     const handleExpandClick = () => {
       setExpanded(!expanded);
     };
     const isLiked = likes.some((id) => id === currentUser._id);
 
-    const dataFormated = dayjs(created_at).format('dddd, MMMM DD YYYY');
+    const dataFormated = dayjs(created_at).format('DD MMMM YYYY, dddd');
 
     const handleLikeClick = () => {
         onPostLike({_id, likes})
     };
+
+    const handleDeleteClick = () => {
+        onPostDelete({_id})
+    }
 
   return (
         <Grid container item xs={6} sm={4} md={3}>
@@ -48,19 +56,21 @@ export const Post = ({currentUser, onPostLike, _id, likes, image, title, author:
                     </Avatar>
                     }
                     action={
-                    <IconButton aria-label="settings">
-                        <MoreVert />
+                    <IconButton aria-label="settings" onClick={handleDeleteClick}>
+                        <Delete/>
                     </IconButton>
                     }
                     title={email}
                     subheader={dataFormated}
                 />
-                <CardMedia
-                    component="img"
-                    height="194"
-                    image={image}
-                    alt="Paella dish"
-                />
+                <Link to={`/post/${_id}`} style={{textDecoration: "none"}}>
+                    <CardMedia
+                        component="img"
+                        height="194"
+                        image={image}
+                        alt="Post"
+                    />
+
                 <CardContent>
                     <Typography variant="h6" color="text.secondary">
                         {title}
@@ -69,11 +79,14 @@ export const Post = ({currentUser, onPostLike, _id, likes, image, title, author:
                         {text}
                     </Typography>
                 </CardContent>
+                </Link>
+
                 <CardActions sx={{marginTop: "auto"}} disableSpacing>
                     <IconButton aria-label="add to favorites" onClick={handleLikeClick}>
                         {isLiked ? <Favorite sx={{fill: "red"}}/> : <Favorite/>}
                     </IconButton>
                     <p>{likes.length}</p>
+                    
                     <ExpandMoreStyle
                         expand={expanded}
                         onClick={handleExpandClick}

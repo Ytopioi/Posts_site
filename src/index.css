@@ -43,4 +43,12 @@ body {
  .btn_edit {
 	 float: right;
  }
-
+ 
+ .text_not_found {
+	 color: white;
+	 background-color: #ab47bc;
+	 margin-top: calc(20%);
+	 margin-bottom: calc(20%);
+	 text-align: center;
+	 /* height: 600px; */
+ }

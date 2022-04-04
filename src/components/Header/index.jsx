@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { AppBar, Toolbar, Typography, Button } from "@mui/material";
 import { Logo } from './../Logo/index';
-
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { purple } from '@mui/material/colors';
+import { CurrentUserContext } from "../../context/currentUserContext";
 
 import s from "./styles.module.css";
 
@@ -15,7 +15,8 @@ const theme = createTheme({
   },
 });
 
-const _Header = ({user, onUpdateUser}) => {
+const _Header = ({onUpdateUser}) => {
+  const currentUser = useContext(CurrentUserContext);
   const handleClickEditButton = (e) => {
     e.preventDefault();
     onUpdateUser({name: "Савенкова Марина Александровна", about: "Писатель"})
@@ -30,8 +31,8 @@ const _Header = ({user, onUpdateUser}) => {
         </Typography>
         <div className={s.user}>
           <p className={s.p}>Now online:</p>
-          {user.email && <span>{user.email}</span>}
-          {user.name && <span>{user.name}: {user.about}</span>}
+          {currentUser.email && <span>{currentUser.email}</span>}
+          {currentUser.name && <span>{currentUser.name}: {currentUser.about}</span>}
           <Button 
             color="inherit" 
             sx={{border: '1px solid purple'}}
