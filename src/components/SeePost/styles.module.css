@@ -39,3 +39,9 @@
 	align-items:center;
 	
 }
+
+.img {
+	display: block;
+	max-width: 100%;
+	height: 400px;
+}

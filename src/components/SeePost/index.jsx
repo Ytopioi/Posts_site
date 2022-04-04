@@ -43,8 +43,8 @@ export const SeePost = ({currentUser, onPostLike, _id, likes, image, title, text
 		</div>
 
 		<div className={s.text_post}>
-			<img src={image} alt={`Изображение поста ${author?.name}`} />
-			<Typography style={{color: "rgb(97, 11, 97)", margin: '20px'} }>
+			<img src={image} alt={`Изображение поста ${author?.name}`} className={s.img} />
+			<Typography style={{color: "rgb(97, 11, 97)", marginLeft: '20px'} }>
 				{text}
 			</Typography>
 		</div>
