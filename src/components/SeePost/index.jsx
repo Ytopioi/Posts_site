@@ -1,26 +1,41 @@
 import React, { useState } from "react";
 import { Avatar, IconButton, Typography } from '@mui/material';
-import { Favorite } from '@mui/icons-material';
+import { Favorite, ArrowBack } from '@mui/icons-material';
 import dayjs from "dayjs";
 import 'dayjs/locale/ru';
+import Button from "../../components/Button";
 
 import cn from "classnames";
 import s from './styles.module.css';
+import { useNavigate } from 'react-router-dom';
 
 dayjs.locale('ru')
 
 export const SeePost = ({currentUser, onPostLike, _id, likes, image, title, text, created_at, author, tags }) => {
-    const isLiked = likes && likes.some((id) => id === currentUser._id);
+    const navigate = useNavigate();
+	 const isLiked = likes && likes.some((id) => id === currentUser._id);
     const dataFormated = dayjs(created_at).format('DD MMMM YYYY, dddd');
 	 
     const handleLikeClick = () => {
+		 console.log(_id, likes);
         onPostLike({_id, likes})
     };
 
+	 const handleBackClick = () => {
+		 navigate(-1);
+	 }
+
   return (
 	<>
-		<div >
-			<h1 className={s.title_post}>{title}</h1>
+		<a href="#" className={s.back} onClick={handleBackClick}>
+			<IconButton aria-label="back" >
+					<ArrowBack/>
+			</IconButton>
+		</a>
+
+		<div className={s.title_post} >
+			<h1>{title}</h1>
+			<Button text='Edit' icon='Edit' />
 		</div>
 
 		<div className={s.author_post}>
@@ -43,7 +58,8 @@ export const SeePost = ({currentUser, onPostLike, _id, likes, image, title, text
 		</div>
 
 		<div className={s.text_post}>
-			<img src={image} alt={`Изображение поста ${author?.name}`} className={s.img} />
+			<img src={image} alt={`Изображение поста ${author?.name}`}  className={s.img} />
+			
 			<Typography style={{color: "rgb(97, 11, 97)", marginLeft: '20px'} }>
 				{text}
 			</Typography>

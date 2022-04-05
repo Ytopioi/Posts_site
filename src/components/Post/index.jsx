@@ -24,6 +24,8 @@ const ExpandMoreStyle = styled((props) => {
 export const Post = ({onPostDelete, onPostLike, _id, likes, image, title, author: {avatar, name, email}, text, created_at }) => {
     const currentUser = useContext(CurrentUserContext);
     const [expanded, setExpanded] = useState(false);
+    const [deleteUser, setDeleteUser] = useState([]);
+
     const handleExpandClick = () => {
       setExpanded(!expanded);
     };
@@ -37,7 +39,8 @@ export const Post = ({onPostDelete, onPostLike, _id, likes, image, title, author
 
     const handleDeleteClick = () => {
         onPostDelete({_id})
-    }
+        console.log(1);
+    };
 
   return (
         <Grid container item xs={6} sm={4} md={3}>
@@ -56,7 +59,7 @@ export const Post = ({onPostDelete, onPostLike, _id, likes, image, title, author
                     </Avatar>
                     }
                     action={
-                    <IconButton aria-label="settings" onClick={handleDeleteClick}>
+                    <IconButton aria-label="delete" onClick={handleDeleteClick}>
                         <Delete/>
                     </IconButton>
                     }
@@ -106,4 +109,3 @@ export const Post = ({onPostDelete, onPostLike, _id, likes, image, title, author
         </Grid>
   );
 };
-

@@ -55,12 +55,13 @@ export const App = () => {
               currentUser={currentUser}
               posts={posts}
               handlePostLike={handlePostLike}
-              onPostDelete={handlePostDelete}
+              handlePostDelete={handlePostDelete}
             />
           } />
 
           <Route path='/post/:postID' element={
             <PagePost 
+              posts={posts}
               currentUser={currentUser}
               handlePostLike={handlePostLike}
             />
