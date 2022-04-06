@@ -10,7 +10,6 @@ import { Route, Routes } from "react-router-dom";
 import { CurrentUserContext } from './context/currentUserContext';
 
 export const App = () => {
-
   const [posts, setPosts] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
 
@@ -31,6 +30,7 @@ export const App = () => {
     const isLiked = likes.some((id) => id === currentUser._id)
     api.changeLikeStatus(_id, isLiked)
       .then((newPost) => {
+        console.log(newPost);
         const newPostsState = posts.map((p) => {
           return p._id === newPost._id ? newPost : p
         })
@@ -38,11 +38,15 @@ export const App = () => {
       })
   }
 
-  const handlePostDelete = ({_id}) => {
-    api.deletePost(_id)
-      .then((data) => {
-        return console.log(data);
-      })
+  const handlePostDelete = (_id) => {
+    if (confirm('Вы хотите удалить пост?')) {
+      api.deletePost(_id)
+        .then((data) => {
+          const newPostsAfterDelete = posts.filter((post) => post._id !== data._id)
+          setPosts(newPostsAfterDelete)
+          console.log(data);
+        })
+    }
   }
 
   return (

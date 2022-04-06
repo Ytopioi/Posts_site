@@ -21,10 +21,10 @@ const ExpandMoreStyle = styled((props) => {
     marginLeft: 'auto',
   }));
 
-export const Post = ({onPostDelete, onPostLike, _id, likes, image, title, author: {avatar, name, email}, text, created_at }) => {
+export const Post = ({handlePostDelete, onPostLike, _id, likes, image, title, author: {avatar, name, email}, text, created_at }) => {
     const currentUser = useContext(CurrentUserContext);
     const [expanded, setExpanded] = useState(false);
-    const [deleteUser, setDeleteUser] = useState([]);
+
 
     const handleExpandClick = () => {
       setExpanded(!expanded);
@@ -38,7 +38,8 @@ export const Post = ({onPostDelete, onPostLike, _id, likes, image, title, author
     };
 
     const handleDeleteClick = () => {
-        onPostDelete({_id})
+        handlePostDelete(_id);
+        console.log(_id);
         console.log(1);
     };
 
@@ -60,7 +61,7 @@ export const Post = ({onPostDelete, onPostLike, _id, likes, image, title, author
                     }
                     action={
                     <IconButton aria-label="delete" onClick={handleDeleteClick}>
-                        <Delete/>
+                        {name === currentUser.name ? <Delete/> : <p></p>}
                     </IconButton>
                     }
                     title={email}
@@ -74,14 +75,14 @@ export const Post = ({onPostDelete, onPostLike, _id, likes, image, title, author
                         alt="Post"
                     />
 
-                <CardContent>
-                    <Typography variant="h6" color="text.secondary">
-                        {title}
-                    </Typography>
-                    <Typography variant="body2" noWrap color="text.secondary">
-                        {text}
-                    </Typography>
-                </CardContent>
+                    <CardContent>
+                        <Typography variant="h6" color="text.secondary">
+                            {title}
+                        </Typography>
+                        <Typography variant="body2" noWrap color="text.secondary">
+                            {text}
+                        </Typography>
+                    </CardContent>
                 </Link>
 
                 <CardActions sx={{marginTop: "auto"}} disableSpacing>

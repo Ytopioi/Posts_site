@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import cn from "classnames";
 import { PostsList } from "../../components/PostsList";
 import Button from "../../components/Button";
 import Pagination from "../../components/Pagination";
 import { Breadcrumbs, Typography } from "@mui/material";
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-export const PageAllPosts = ({currentUser, posts, handlePostLike, handleDeleteClick}) => {
+export const PageAllPosts = ({currentUser, posts, handlePostLike, handlePostDelete}) => {
 	
 	function handleClickBread(event) {
 		event.preventDefault();
 		console.info('You clicked a breadcrumb.');
-
 	 }
 
   return (
@@ -28,7 +27,7 @@ export const PageAllPosts = ({currentUser, posts, handlePostLike, handleDeleteCl
       <h1>Welcome to Our Image Board!</h1>
       	<Button text='Creat Post' icon='Add' />
       </div>
-      <PostsList postsData={posts} onPostLike={handlePostLike} currentUser={currentUser} onPostDelete={handleDeleteClick}/>
+      <PostsList postsData={posts} onPostLike={handlePostLike} currentUser={currentUser} handlePostDelete={handlePostDelete}/>
 		<Pagination />
     </>
   );
