@@ -1,0 +1,17 @@
+.inputs {
+	margin: 0 auto;
+
+	color: purple;
+
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.btn {
+	margin: 20px;
+
+	display: flex;
+
+	justify-content: flex-end;
+}

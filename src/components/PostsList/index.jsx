@@ -3,7 +3,6 @@ import { Grid  } from '@mui/material';
 import { Post } from "../Post";
 
 export const PostsList = ({postsData, onPostLike, handlePostDelete}) => {
-  const countPost = 0;
 
   return (
     <>

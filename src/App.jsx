@@ -6,20 +6,33 @@ import { Container } from "@mui/material";
 import api from './utils/Api';
 import { PageAllPosts } from "./pages/AllPostsPage/AllPostsPage";
 import { PagePost } from "./pages/PostPage/PostPage";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { CurrentUserContext } from './context/currentUserContext';
+import { PageNotFound } from "./pages/NotFoundPage/NotFoundPage";
+import { PageEditPost } from "./pages/EditPostPage.jsx/EditPostPage";
+import { PageCreatePost } from "./pages/CreatePostPage.jsx/CreatePostPage";
+import Pagination from "./components/Pagination/index";
 
 export const App = () => {
+  const location = useLocation();
   const [posts, setPosts] = useState([]);
+  
   const [currentUser, setCurrentUser] = useState({});
 
+  const [page, setPage] = useState(parseInt(location.search?.split("=")[1]) || 1);
+  const [pageLimit, setPageLimit] = useState(12);
+  const [postQty, setPostQty] = useState(0);
+
   useEffect(() => {
-    Promise.all([api.getPostsList(), api.getUserInfo()])
+    Promise.all([api.getPostsList(page, pageLimit), api.getUserInfo()])
       .then(([postData, userData]) => {
-        setPosts(postData);
+        // console.log(postData);
+        // console.log(postData.posts);
+        setPosts(postData.posts);
+        setPostQty(postData.total);
         setCurrentUser(userData);
       })
-  },[])
+  },[page, pageLimit])
 
   const handleUpdateUser = (userUpdate) => {
     api.setUserInfo(userUpdate)
@@ -30,7 +43,6 @@ export const App = () => {
     const isLiked = likes.some((id) => id === currentUser._id)
     api.changeLikeStatus(_id, isLiked)
       .then((newPost) => {
-        console.log(newPost);
         const newPostsState = posts.map((p) => {
           return p._id === newPost._id ? newPost : p
         })
@@ -44,10 +56,24 @@ export const App = () => {
         .then((data) => {
           const newPostsAfterDelete = posts.filter((post) => post._id !== data._id)
           setPosts(newPostsAfterDelete)
-          console.log(data);
         })
     }
   }
+
+  const handleCreatePost = (postData) => {
+    api.createPost(postData)
+      .then((newPostData) => {
+        setPosts(prevState => [...prevState, newPostData]);
+      })
+  };
+
+  //   const handleCreatePost = (postData) => {
+  //   api.createPost(postData)
+  //     .then((newPostData) => {
+  //       const newPostAfterCreate = posts.push(newPostData);
+  //       setPosts(newPostAfterCreate);
+  //     })
+  // };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -55,12 +81,20 @@ export const App = () => {
       <Container >
         <Routes>
           <Route path='/' element={
-            <PageAllPosts
-              currentUser={currentUser}
-              posts={posts}
-              handlePostLike={handlePostLike}
-              handlePostDelete={handlePostDelete}
-            />
+            <>
+              <PageAllPosts
+                currentUser={currentUser}
+                posts={posts}
+                handlePostLike={handlePostLike}
+                handlePostDelete={handlePostDelete}
+              />
+              <Pagination 
+                page={page}
+                postQty={postQty}
+                pageLimit={pageLimit}
+                setPage={setPage}
+              />
+            </>
           } />
 
           <Route path='/post/:postID' element={
@@ -71,9 +105,23 @@ export const App = () => {
             />
           } />
 
+          <Route path='/postEdit/:postID' element={
+            <PageEditPost
+              posts={posts}
+              currentUser={currentUser}
+            />
+          } />
+
+          <Route path='/postCreate' element={
+            <PageCreatePost
+              posts={posts}
+              currentUser={currentUser}
+              handleCreatePost={handleCreatePost}
+            />
+          } />
+
           <Route path='*' element={
-            // <PageNotFound />
-            <h1 className={cn('text_not_found')}>Ошибка 404<br/>Страница не найдена</h1>
+            <PageNotFound />
           } />
         </Routes>
       </Container>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Avatar, IconButton, Typography } from '@mui/material';
 import { Favorite, ArrowBack } from '@mui/icons-material';
 import dayjs from "dayjs";
@@ -7,17 +7,18 @@ import Button from "../../components/Button";
 
 import cn from "classnames";
 import s from './styles.module.css';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { CurrentUserContext } from "../../context/currentUserContext";
 
 dayjs.locale('ru')
 
-export const SeePost = ({currentUser, onPostLike, _id, likes, image, title, text, created_at, author, tags }) => {
+export const SeePost = ({onPostLike, _id, likes, image, title, text, created_at, author, tags }) => {
     const navigate = useNavigate();
+	 const currentUser = useContext(CurrentUserContext);
 	 const isLiked = likes && likes.some((id) => id === currentUser._id);
     const dataFormated = dayjs(created_at).format('DD MMMM YYYY, dddd');
 	 
     const handleLikeClick = () => {
-		 console.log(_id, likes);
         onPostLike({_id, likes})
     };
 
@@ -35,7 +36,10 @@ export const SeePost = ({currentUser, onPostLike, _id, likes, image, title, text
 
 		<div className={s.title_post} >
 			<h1>{title}</h1>
-			<Button text='Edit' icon='Edit' />
+			<Link to={`/postEdit/${_id}`} style={{textDecoration: "none"}} >
+				{author?.name === currentUser.name ? <Button text='Edit' icon='Edit' /> : <p></p>}
+			</Link>
+
 		</div>
 
 		<div className={s.author_post}>

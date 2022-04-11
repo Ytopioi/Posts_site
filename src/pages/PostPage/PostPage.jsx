@@ -5,9 +5,10 @@ import api from '../../utils/Api';
 import { SeePost } from "../../components/SeePost/index";
 import { useParams, Link } from "react-router-dom";
 
-export const PagePost = ({currentUser, handlePostLike, posts}) => {
+export const PagePost = ({handlePostLike, posts}) => {
   const [post, setPost] = useState([]);
   const { postID } = useParams();
+
 
   useEffect(() => {
     api.getPostById(postID)
@@ -35,7 +36,7 @@ export const PagePost = ({currentUser, handlePostLike, posts}) => {
 				</Breadcrumbs>
 			</div>
 
-			<SeePost {...post} currentUser={currentUser} onPostLike={handlePostLike} />
+			<SeePost {...post} onPostLike={handlePostLike} />
     </>
   );
 };

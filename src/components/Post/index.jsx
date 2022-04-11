@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Avatar, Card, CardActions, CardContent, CardHeader, CardMedia, Collapse, IconButton, Typography, Grid } from '@mui/material';
-import { Favorite, MoreVert, ExpandMore, Delete } from '@mui/icons-material';
+import { Favorite, ExpandMore, Delete } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import dayjs from "dayjs";
 import 'dayjs/locale/ru';
@@ -21,17 +21,17 @@ const ExpandMoreStyle = styled((props) => {
     marginLeft: 'auto',
   }));
 
-export const Post = ({handlePostDelete, onPostLike, _id, likes, image, title, author: {avatar, name, email}, text, created_at }) => {
+//   : {avatar, name, email}
+
+export const Post = ({handlePostDelete, onPostLike, _id, likes, image, title, author, text, created_at }) => {
     const currentUser = useContext(CurrentUserContext);
     const [expanded, setExpanded] = useState(false);
-
+    const isLiked = likes.some((id) => id === currentUser._id);
+    const dataFormated = dayjs(created_at).format('DD MMMM YYYY, dddd');
 
     const handleExpandClick = () => {
       setExpanded(!expanded);
     };
-    const isLiked = likes.some((id) => id === currentUser._id);
-
-    const dataFormated = dayjs(created_at).format('DD MMMM YYYY, dddd');
 
     const handleLikeClick = () => {
         onPostLike({_id, likes})
@@ -39,11 +39,12 @@ export const Post = ({handlePostDelete, onPostLike, _id, likes, image, title, au
 
     const handleDeleteClick = () => {
         handlePostDelete(_id);
-        console.log(_id);
-        console.log(1);
+        // console.log(_id);
+        // console.log(1);
     };
 
   return (
+      <>
         <Grid container item xs={6} sm={4} md={3}>
             <Card 
             className={s.card} 
@@ -55,16 +56,16 @@ export const Post = ({handlePostDelete, onPostLike, _id, likes, image, title, au
             >
                 <CardHeader
                     avatar={
-                    <Avatar src={avatar && avatar} aria-label="recipe">
-                        {!avatar && name.slice(0,1)}
+                    <Avatar src={author?.avatar && author?.avatar} aria-label="recipe">
+                        {!author?.avatar && author?.name.slice(0,1)}
                     </Avatar>
                     }
                     action={
                     <IconButton aria-label="delete" onClick={handleDeleteClick}>
-                        {name === currentUser.name ? <Delete/> : <p></p>}
+                        {author?.name === currentUser.name ? <Delete/> : <p></p>}
                     </IconButton>
                     }
-                    title={email}
+                    title={author?.email}
                     subheader={dataFormated}
                 />
                 <Link to={`/post/${_id}`} style={{textDecoration: "none"}}>
@@ -108,5 +109,6 @@ export const Post = ({handlePostDelete, onPostLike, _id, likes, image, title, au
                 </Collapse>
             </Card>
         </Grid>
+    </>
   );
 };
