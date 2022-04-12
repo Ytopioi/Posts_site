@@ -4,10 +4,12 @@ import { Breadcrumbs, Typography, IconButton } from "@mui/material";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ArrowBack } from '@mui/icons-material';
 import { FormEdit } from "../../components/FormEdit";
+import api from './../../utils/Api';
 
 export const PageEditPost = ({posts}) => {
   const navigate = useNavigate();
   const { postID } = useParams();
+  const [postData, setPostData] = useState({});
 
   function handleClickBread(event) {
 		event.preventDefault();
@@ -17,6 +19,23 @@ export const PageEditPost = ({posts}) => {
    const handleBackClick = () => {
     navigate(-1);
   }
+
+  useEffect(() => {
+	api.getPostById(postID)
+	  .then((postData) => {
+		 setPostData(postData);
+	  })
+ },[posts, postID])
+
+ const handleEditPost = (postData, postID) => {
+	api.editPost({...postData}, postID)
+	  .then((newPostData) => {
+		  console.log(newPostData);
+		console.log(newPostData);
+		// setPostData(newPostData);
+		//  setPostData((prevState) => [...prevState, newPostData])
+	  })
+ };
 
   return (
     <>
@@ -41,7 +60,7 @@ export const PageEditPost = ({posts}) => {
 
 		<h1 style={{color: "purple"}} >Edit Your Post</h1>
 
-		<FormEdit posts={posts} postID={postID}/>
+		<FormEdit {...postData} postData={postData} postID={postID} handleEditPost={handleEditPost}/>
     </>
   );
 };

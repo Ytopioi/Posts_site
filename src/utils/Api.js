@@ -74,14 +74,16 @@ class Api {
 	  }).then(onResponce)
 	}
 
-	editPost(postData, postId) {
+	editPost({title, image, tags, text}, postId) {
 		return fetch(`${this._baseUrl}/posts/${postId}`, {
 			method: "PATCH",
 			headers: {
 				 authorization: this._token,
 				 "Content-type": "application/json"
 			},
-			body: JSON.stringify(postData)
+			body: JSON.stringify({
+				title, image, tags, text
+			})
 	  }).then(onResponce)
 	}
 	
