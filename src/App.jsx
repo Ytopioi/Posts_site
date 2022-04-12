@@ -63,9 +63,23 @@ export const App = () => {
   const handleCreatePost = (postData) => {
     api.createPost(postData)
       .then((newPostData) => {
+        console.log(newPostData);
         setPosts(prevState => [...prevState, newPostData]);
       })
   };
+
+  const handleEditPost = (postData, postID) => {
+    if (confirm('Редактируем?')) {
+    api.editPost(postData, postID)
+      .then((newPostData) => {
+        const newPostsState = posts.map((p) => {
+          return p._id === newPostData._id ? newPostData : p
+        })
+         console.log(newPostsState);
+        setPosts(newPostsState);
+      })
+    }
+   };
 
   //   const handleCreatePost = (postData) => {
   //   api.createPost(postData)
@@ -109,6 +123,7 @@ export const App = () => {
             <PageEditPost
               posts={posts}
               currentUser={currentUser}
+              handleEditPost={handleEditPost}
             />
           } />
 

@@ -6,7 +6,7 @@ import { ArrowBack } from '@mui/icons-material';
 import { FormEdit } from "../../components/FormEdit";
 import api from './../../utils/Api';
 
-export const PageEditPost = ({posts}) => {
+export const PageEditPost = ({posts, handleEditPost}) => {
   const navigate = useNavigate();
   const { postID } = useParams();
   const [postData, setPostData] = useState({});
@@ -27,15 +27,6 @@ export const PageEditPost = ({posts}) => {
 	  })
  },[posts, postID])
 
- const handleEditPost = (postData, postID) => {
-	api.editPost({...postData}, postID)
-	  .then((newPostData) => {
-		  console.log(newPostData);
-		console.log(newPostData);
-		// setPostData(newPostData);
-		//  setPostData((prevState) => [...prevState, newPostData])
-	  })
- };
 
   return (
     <>
@@ -60,7 +51,7 @@ export const PageEditPost = ({posts}) => {
 
 		<h1 style={{color: "purple"}} >Edit Your Post</h1>
 
-		<FormEdit {...postData} postData={postData} postID={postID} handleEditPost={handleEditPost}/>
+		<FormEdit posts={posts} {...postData} postData={postData} postID={postID} handleEditPost={handleEditPost}/>
     </>
   );
 };

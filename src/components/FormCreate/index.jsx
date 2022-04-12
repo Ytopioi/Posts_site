@@ -95,7 +95,7 @@ export const FormCreate = ({posts, handleCreatePost}) => {
 			 <InputLabel htmlFor="outlined-multiline-flexible">Tags</InputLabel>
           <OutlinedInput
             id="outlined-multiline-flexible"
-				label="Image"
+				label="Tags"
             value={createPost.tags}
             onChange={handleChange('tags')}
           />

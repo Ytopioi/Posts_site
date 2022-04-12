@@ -17,8 +17,27 @@ const theme = createTheme({
   },
 });
 
-export const FormEdit = ({title, image, tags, text, postData, postID, handleEditPost}) => {
-  const [post, setPost] = useState([]);
+export const FormEdit = ({postData, postID, handleEditPost}) => {
+  let titleN = '';
+  let imageN = '';
+  let tagsN = [];
+  let textN = '';
+  
+  for (let key in postData) {
+    if(key === 'title') {
+      titleN = postData[key]
+    }
+    if(key === 'image') {
+      imageN = postData[key]
+    }
+    if(key === 'tags') {
+      tagsN = postData[key]
+    }
+    if(key === 'text') {
+      textN = postData[key]
+    }
+  }
+
   const navigate = useNavigate();
   const [editPost, setEditPost] = useState({
     title: '',
@@ -28,11 +47,10 @@ export const FormEdit = ({title, image, tags, text, postData, postID, handleEdit
   });
 
   const handleChange = (prop) => (event) => {
-    // console.log(event);
     setEditPost(() => prop === "tags"
               ? {
                   ...editPost,
-                  [prop]: event.target.value.split(",")
+                  [prop]: event.target.value.split(" ")
               }
               : {
                   ...editPost,
@@ -41,17 +59,14 @@ export const FormEdit = ({title, image, tags, text, postData, postID, handleEdit
           )
  };
 
-
   const handlePublish = (event) => {
     event.preventDefault();
-    handleEditPost(editPost, postID)
-        //   setEditPost({
-        //   title: '',
-        //   image: "",
-        //   tags: [],
-        //   text: ''
-        // })
-    navigate(-1);
+    if(editPost.title !== "" && editPost.text !==""){
+      handleEditPost(editPost, postID);
+      navigate(-1);
+    }else{
+      alert('Add Title and Text!')
+    }
   }
 
   const handleCancelClick = () => {
@@ -78,7 +93,7 @@ export const FormEdit = ({title, image, tags, text, postData, postID, handleEdit
           <TextField
             disabled
             id="outlined-disabled"
-            value={title}
+            value={titleN}
             size='small'
           /> 
         </FormControl>  
@@ -97,7 +112,7 @@ export const FormEdit = ({title, image, tags, text, postData, postID, handleEdit
           <TextField
             disabled
             id="outlined-disabled"
-            value={image}
+            value={imageN}
             size='small'
           /> 
         </FormControl>  
@@ -116,7 +131,7 @@ export const FormEdit = ({title, image, tags, text, postData, postID, handleEdit
           <TextField
             disabled
             id="outlined-disabled"
-            value={tags}
+            value={tagsN}
             size='small'
           /> 
         </FormControl>  
@@ -125,7 +140,6 @@ export const FormEdit = ({title, image, tags, text, postData, postID, handleEdit
     <FormHelperText id="outlined-tags-helper-text">Tags</FormHelperText>
           <OutlinedInput
             id="outlined-multiline-flexible"
-
             value={editPost.tags}
             onChange={handleChange('tags')}
           />
@@ -136,7 +150,7 @@ export const FormEdit = ({title, image, tags, text, postData, postID, handleEdit
           <TextField
             disabled
             id="outlined-disabled"
-            value={text}
+            value={textN}
             size='small'
           /> 
         </FormControl>  
