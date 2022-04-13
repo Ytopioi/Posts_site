@@ -81,7 +81,7 @@ export const SeePost = ({onPostLike, _id, likes, image, title, text, created_at,
 				{tags?.map((...tag) => {
 					for(let val of tag) {
 						if(typeof val === 'string') {
-							return <a key={val} href="#" className={s.tag_link}>#{val}</a>
+							return <a key={tag[1]} href="#" className={s.tag_link}>#{val}</a>
 						}
 					}
 					})

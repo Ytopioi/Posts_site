@@ -10,7 +10,7 @@ export const PageCreatePost = ({posts, handleCreatePost}) => {
 
   function handleClickBread(event) {
 		event.preventDefault();
-		console.info('You clicked a breadcrumb.');
+
 	 }
 
    const handleBackClick = () => {

@@ -13,7 +13,6 @@ export const PageEditPost = ({posts, handleEditPost}) => {
 
   function handleClickBread(event) {
 		event.preventDefault();
-		console.info('You clicked a breadcrumb.');
 	 }
 
    const handleBackClick = () => {

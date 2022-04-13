@@ -9,7 +9,6 @@ export const PageNotFound = () => {
 		
 	function handleClickBread(event) {
 		event.preventDefault();
-		console.info('You clicked a breadcrumb.');
 	 }
 
   return (

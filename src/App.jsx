@@ -26,8 +26,6 @@ export const App = () => {
   useEffect(() => {
     Promise.all([api.getPostsList(page, pageLimit), api.getUserInfo()])
       .then(([postData, userData]) => {
-        // console.log(postData);
-        // console.log(postData.posts);
         setPosts(postData.posts);
         setPostQty(postData.total);
         setCurrentUser(userData);
@@ -63,13 +61,12 @@ export const App = () => {
   const handleCreatePost = (postData) => {
     api.createPost(postData)
       .then((newPostData) => {
-        console.log(newPostData);
         setPosts(prevState => [...prevState, newPostData]);
       })
   };
 
   const handleEditPost = (postData, postID) => {
-    if (confirm('Редактируем?')) {
+    if (confirm('Do you want to save new post?')) {
     api.editPost(postData, postID)
       .then((newPostData) => {
         const newPostsState = posts.map((p) => {
@@ -80,14 +77,6 @@ export const App = () => {
       })
     }
    };
-
-  //   const handleCreatePost = (postData) => {
-  //   api.createPost(postData)
-  //     .then((newPostData) => {
-  //       const newPostAfterCreate = posts.push(newPostData);
-  //       setPosts(newPostAfterCreate);
-  //     })
-  // };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
